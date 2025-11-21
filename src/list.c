@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 09:26:34 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/20 09:35:07 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:19:01 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,18 @@ void	list_for_each(t_list *vec, void (*func)(void *))
 		func(list->data);
 		list = list->next;
 	}
+}
+
+bool	list_has(t_list *vec, void *data, bool (*cmp_func)(void *, void*))
+{
+	t_list_node	*list;
+	
+	list = vec->list;
+	while (list)
+	{
+		if (cmp_func(data, list->data))
+			return (true);
+		list = list->next;
+	}
+	return (false);
 }
