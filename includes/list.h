@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 09:25:29 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/21 08:29:04 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:42:47 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@ int	list_delete_node(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LI
 
 LIST_TYPE	list_last(t_list *vec);
 void		list_for_each(t_list *vec, void (*func)(LIST_TYPE));
+void		list_for_each_param(t_list *vec, void (*func)(LIST_TYPE, void *), void *param);
 bool		list_has(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE));
+LIST_TYPE	*list_to_array(t_list *vec);
+
 #endif

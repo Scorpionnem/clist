@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 09:26:34 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/21 08:36:54 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:48:54 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,18 @@ void	list_for_each(t_list *vec, void (*func)(LIST_TYPE))
 	}
 }
 
+void		list_for_each_param(t_list *vec, void (*func)(LIST_TYPE, void *), void *param)
+{
+	t_list_node	*list;
+	
+	list = vec->list;
+	while (list)
+	{
+		func(list->data, param);
+		list = list->next;
+	}
+}
+
 bool	list_has(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE))
 {
 	t_list_node	*list;
@@ -134,4 +146,24 @@ bool	list_has(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE
 		list = list->next;
 	}
 	return (false);
+}
+
+LIST_TYPE	*list_to_array(t_list *vec)
+{
+	LIST_TYPE	*res;
+	t_list_node	*list;
+	int			i;
+	
+	res = malloc(vec->size * sizeof(LIST_TYPE));
+	if (!res)
+		return (0);
+	list = vec->list;
+	i = 0;
+	while (list)
+	{
+		memcpy(&res[i], &list->data, sizeof(LIST_TYPE));
+		list = list->next;
+		i++;
+	}
+	return (res);
 }

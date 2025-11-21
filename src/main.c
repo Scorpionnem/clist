@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 08:43:57 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/21 08:39:36 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:49:45 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ int	main(void)
 	list_add_back(&vec, arr[7]);
 	list_for_each(&vec, print);
 	printf("\n");
+
+	int	*arr2 = list_to_array(&vec);
+	printf("%d ", arr2[0]);
+	printf("%d ", arr2[1]);
+	printf("%d ", arr2[2]);
+	printf("%d\n", arr2[3]);
+	free(arr2);
 
 	list_delete(&vec, false);
 }
