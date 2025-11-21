@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 09:26:34 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/21 08:19:01 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:36:54 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ int	list_delete(t_list *vec, bool free_data)
 {
 	t_list_node	*tmp;
 
+	(void)free_data;
 	while (vec->list)
 	{
-		if (free_data)
-			free(vec->list->data);
+		#if LIST_CAN_FREE
+			if (free_data)
+				free(vec->list->data);
+		#endif
 		tmp = vec->list->next;
 		free(vec->list);
 		vec->list = tmp;
@@ -35,7 +38,7 @@ int	list_delete(t_list *vec, bool free_data)
 	return (1);
 }
 
-int	list_add_back(t_list *vec, void *data)
+int	list_add_back(t_list *vec, LIST_TYPE data)
 {
 	t_list_node	*last;
 	t_list_node	*new;
@@ -52,7 +55,7 @@ int	list_add_back(t_list *vec, void *data)
 	return (1);
 }
 
-int	list_add_front(t_list *vec, void *data)
+int	list_add_front(t_list *vec, LIST_TYPE data)
 {
 	t_list_node	*new;
 
@@ -65,22 +68,23 @@ int	list_add_front(t_list *vec, void *data)
 	return (1);
 }
 
-void	*list_last(t_list *vec)
+LIST_TYPE	list_last(t_list *vec)
 {
 	t_list_node	*node;
 
 	node = list_node_last(vec->list);
 	if (!node)
-		return (NULL);
+		return (0);
 	return (node->data);
 }
 
-int	list_delete_node(t_list *vec, void *data, bool (*cmp_func)(void *, void*), bool free_data)
+int	list_delete_node(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE), bool free_data)
 {
 	t_list_node	*list;
 	t_list_node	*prev;
 	t_list_node	*next;
 
+	(void)free_data;
 	list = vec->list;
 	prev = NULL;
 	while (list)
@@ -88,8 +92,10 @@ int	list_delete_node(t_list *vec, void *data, bool (*cmp_func)(void *, void*), b
 		if (cmp_func(data, list->data))
 		{
 			next = list->next;
-			if (free_data)
-				free(list->data);
+			#if LIST_CAN_FREE
+				if (free_data)
+					free(list->data);
+					#endif
 			free(list);
 			if (!prev)
 				vec->list = next;
@@ -104,7 +110,7 @@ int	list_delete_node(t_list *vec, void *data, bool (*cmp_func)(void *, void*), b
 	return (0);
 }
 
-void	list_for_each(t_list *vec, void (*func)(void *))
+void	list_for_each(t_list *vec, void (*func)(LIST_TYPE))
 {
 	t_list_node	*list;
 	
@@ -116,7 +122,7 @@ void	list_for_each(t_list *vec, void (*func)(void *))
 	}
 }
 
-bool	list_has(t_list *vec, void *data, bool (*cmp_func)(void *, void*))
+bool	list_has(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE))
 {
 	t_list_node	*list;
 	

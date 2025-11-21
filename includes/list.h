@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 09:25:29 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/21 08:17:55 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:29:04 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 # include <string.h>
 # include <stdio.h>
 
+# include "list_config.h"
+
 typedef struct	s_list
 {
 	struct s_list_node	*list;
-	uint64_t		size;
+	uint64_t			size;
 }	t_list;
 
 /*
@@ -37,18 +39,18 @@ int	list_delete(t_list *vec, bool free_data);
 /*
 	Adds a new node to the back of the list containing data
 */
-int	list_add_back(t_list *vec, void *data);
+int	list_add_back(t_list *vec, LIST_TYPE data);
 /*
 	Adds a new node to the front of the list containing data	
 */
-int	list_add_front(t_list *vec, void *data);
+int	list_add_front(t_list *vec, LIST_TYPE data);
 
 /*
 	Deletes the first occurence of a node containing data, comparison is done using the cmp_func function
 */
-int	list_delete_node(t_list *vec, void *data, bool (*cmp_func)(void *, void*), bool free_data);
+int	list_delete_node(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE), bool free_data);
 
-void	*list_last(t_list *vec);
-void	list_for_each(t_list *vec, void (*func)(void *));
-bool	list_has(t_list *vec, void *data, bool (*cmp_func)(void *, void*));
+LIST_TYPE	list_last(t_list *vec);
+void		list_for_each(t_list *vec, void (*func)(LIST_TYPE));
+bool		list_has(t_list *vec, LIST_TYPE data, bool (*cmp_func)(LIST_TYPE, LIST_TYPE));
 #endif

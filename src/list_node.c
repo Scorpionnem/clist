@@ -6,7 +6,7 @@
 /*   By: mbatty <mbatty@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 09:27:20 by mbatty            #+#    #+#             */
-/*   Updated: 2025/11/20 09:35:10 by mbatty           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:36:10 by mbatty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_list_node	*list_node_last(t_list_node *nodes)
 	return (nodes);	
 }
 
-t_list_node	*list_node_new(void *data)
+t_list_node	*list_node_new(LIST_TYPE data)
 {
 	t_list_node	*new;
 
